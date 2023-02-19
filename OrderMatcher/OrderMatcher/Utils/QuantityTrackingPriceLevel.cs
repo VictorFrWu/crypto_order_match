@@ -36,7 +36,6 @@ namespace OrderMatcher
             return _orders.Remove(order);
         }
 
-        [SuppressMessage("Microsoft.Globalization", "CA1303")]
         internal bool Fill(Order order, Quantity quantity)
         {
             if (order.OpenQuantity >= quantity)
