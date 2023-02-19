@@ -36,6 +36,7 @@ namespace OrderMatcher.Performance
             //TODO check for data structure available O(1) O(log n)
             //TODO check for memory usage
             //TODO check use of property should be avoided as much as possible
+            //TODO add logger
             //TODO GC ??
         }
     }
