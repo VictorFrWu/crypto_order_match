@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "OrderMatcher/1.0.0": {
+        "dependencies": {
+          "OrderMatcher.Types": "1.0.0"
+        },
+        "runtime": {
+          "OrderMatcher.dll": {}
+        }
+      },
+      "OrderMatcher.Types/1.0.0": {
+        "runtime": {
+          "OrderMatcher.Types.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OrderMatcher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OrderMatcher.Types/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

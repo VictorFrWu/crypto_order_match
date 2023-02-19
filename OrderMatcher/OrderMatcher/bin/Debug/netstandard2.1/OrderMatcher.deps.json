@@ -1,0 +1,37 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.1/",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.1": {},
+    ".NETStandard,Version=v2.1/": {
+      "OrderMatcher/1.0.0": {
+        "dependencies": {
+          "OrderMatcher.Types": "1.0.0"
+        },
+        "runtime": {
+          "OrderMatcher.dll": {}
+        }
+      },
+      "OrderMatcher.Types/1.0.0": {
+        "runtime": {
+          "OrderMatcher.Types.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OrderMatcher/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OrderMatcher.Types/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

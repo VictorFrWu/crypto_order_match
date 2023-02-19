@@ -1,0 +1,139 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETStandard,Version=v2.1": {
+      "OrderMatcher.Types/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/OrderMatcher.Types.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OrderMatcher.Types.dll": {}
+        }
+      }
+    },
+    "net6.0": {
+      "OrderMatcher.Types/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/OrderMatcher.Types.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/OrderMatcher.Types.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OrderMatcher.Types/1.0.0": {
+      "type": "project",
+      "path": "../OrderMatcher.Types/OrderMatcher.Types.csproj",
+      "msbuildProject": "../OrderMatcher.Types/OrderMatcher.Types.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETStandard,Version=v2.1": [
+      "OrderMatcher.Types >= 1.0.0"
+    ],
+    "net6.0": [
+      "OrderMatcher.Types >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\hwu\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher\\OrderMatcher.csproj",
+      "projectName": "OrderMatcher",
+      "projectPath": "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher\\OrderMatcher.csproj",
+      "packagesPath": "C:\\Users\\hwu\\.nuget\\packages\\",
+      "outputPath": "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher\\obj\\",
+      "projectStyle": "PackageReference",
+      "crossTargeting": true,
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\hwu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0",
+        "netstandard2.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher.Types\\OrderMatcher.Types.csproj": {
+              "projectPath": "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher.Types\\OrderMatcher.Types.csproj"
+            }
+          }
+        },
+        "netstandard2.1": {
+          "targetAlias": "netstandard2.1",
+          "projectReferences": {
+            "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher.Types\\OrderMatcher.Types.csproj": {
+              "projectPath": "C:\\Crypto\\order-matcher-master\\OrderMatcher\\OrderMatcher.Types\\OrderMatcher.Types.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+      },
+      "netstandard2.1": {
+        "targetAlias": "netstandard2.1",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "NETStandard.Library": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

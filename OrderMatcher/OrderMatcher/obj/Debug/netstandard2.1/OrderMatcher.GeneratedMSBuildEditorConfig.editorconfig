@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = OrderMatcher
+build_property.ProjectDir = C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher\

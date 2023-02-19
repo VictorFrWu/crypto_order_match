@@ -1,0 +1,12 @@
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\bin\Debug\net6.0\OrderMatcher.Types.deps.json
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\bin\Debug\net6.0\OrderMatcher.Types.dll
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\bin\Debug\net6.0\ref\OrderMatcher.Types.dll
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\bin\Debug\net6.0\OrderMatcher.Types.pdb
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.csproj.AssemblyReference.cache
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.GeneratedMSBuildEditorConfig.editorconfig
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.AssemblyInfoInputs.cache
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.AssemblyInfo.cs
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.csproj.CoreCompileInputs.cache
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.dll
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\ref\OrderMatcher.Types.dll
+C:\Crypto\order-matcher-master\OrderMatcher\OrderMatcher.Types\obj\Debug\net6.0\OrderMatcher.Types.pdb
