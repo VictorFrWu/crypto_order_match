@@ -60,12 +60,12 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length < sizeOfMessage)
                 throw new ArgumentException(Constant.INVALID_SIZE, nameof(bytes));
 
-            Write(bytes.Slice(messageLengthOffset), sizeOfMessage);
+            Write(bytes[messageLengthOffset..], sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.OrderMatchingResult;
-            Write(bytes.Slice(versionOffset), version);
-            Write(bytes.Slice(orderIdOffset), orderId);
-            Write(bytes.Slice(resultOffset), (byte)result);
-            Write(bytes.Slice(timestampOffset), timeStamp);
+            Write(bytes[versionOffset..], version);
+            Write(bytes[orderIdOffset..], orderId);
+            Write(bytes[resultOffset..], (byte)result);
+            Write(bytes[timestampOffset..], timeStamp);
         }
 
         public static MatchingEngineResult Deserialize(ReadOnlySpan<byte> bytes)
@@ -76,20 +76,20 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length != sizeOfMessage)
                 throw new Exception("OrderMatchingResult Message must be of Size : " + sizeOfMessage);
 
-            var messageType = (MessageType)(bytes[messageTypeOffset]);
+            var messageType = (MessageType)bytes[messageTypeOffset];
 
             if (messageType != MessageType.OrderMatchingResult)
                 throw new Exception(Constant.INVALID_MESSAGE);
 
-            var version = BitConverter.ToInt16(bytes.Slice(versionOffset));
+            var version = BitConverter.ToInt16(bytes[versionOffset..]);
 
             if (version != MatchingEngineResultSerializer.version)
                 throw new Exception(Constant.INVALID_VERSION);
 
             var result = new MatchingEngineResult();
-            result.OrderId = BitConverter.ToUInt64(bytes.Slice(orderIdOffset));
+            result.OrderId = BitConverter.ToUInt64(bytes[orderIdOffset..]);
             result.Result = (OrderMatchingResult)bytes[resultOffset];
-            result.Timestamp = BitConverter.ToInt64(bytes.Slice(timestampOffset));
+            result.Timestamp = BitConverter.ToInt64(bytes[timestampOffset..]);
             return result;
         }
     }

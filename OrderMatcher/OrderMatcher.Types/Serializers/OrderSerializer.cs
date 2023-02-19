@@ -82,27 +82,27 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length < sizeOfMessage)
                 throw new ArgumentException(Constant.INVALID_SIZE, nameof(bytes));
 
-            Write(bytes.Slice(messageLengthOffset), sizeOfMessage);
+            Write(bytes[messageLengthOffset..], sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.NewOrderRequest;
-            Write(bytes.Slice(versionOffset), version);
-            Write(bytes.Slice(sideOffset), order.IsBuy);
+            Write(bytes[versionOffset..], version);
+            Write(bytes[sideOffset..], order.IsBuy);
             bytes[orderConditionOffset] = (byte)order.OrderCondition;
-            order.OrderId.WriteBytes(bytes.Slice(orderIdOffset));
-            order.UserId.WriteBytes(bytes.Slice(userIdOffset));
-            Price.WriteBytes(bytes.Slice(priceOffset), order.Price);
+            order.OrderId.WriteBytes(bytes[orderIdOffset..]);
+            order.UserId.WriteBytes(bytes[userIdOffset..]);
+            Price.WriteBytes(bytes[priceOffset..], order.Price);
 
             if (order.TipQuantity > 0 && order.TotalQuantity > 0)
-                Quantity.WriteBytes(bytes.Slice(quantityOffset), order.TipQuantity);
+                Quantity.WriteBytes(bytes[quantityOffset..], order.TipQuantity);
             else
-                Quantity.WriteBytes(bytes.Slice(quantityOffset), order.OpenQuantity);
+                Quantity.WriteBytes(bytes[quantityOffset..], order.OpenQuantity);
 
-            Price.WriteBytes(bytes.Slice(stopPriceOffset), order.StopPrice);
-            Quantity.WriteBytes(bytes.Slice(totalQuantityOffset), order.TotalQuantity);
-            Write(bytes.Slice(cancelOnOffset), order.CancelOn);
-            Quantity.WriteBytes(bytes.Slice(orderAmountOffset), order.OrderAmount);
-            Write(bytes.Slice(feeIdOffset), order.FeeId);
-            Quantity.WriteBytes(bytes.Slice(costOffset), order.Cost);
-            Quantity.WriteBytes(bytes.Slice(feeOffset), order.Fee);
+            Price.WriteBytes(bytes[stopPriceOffset..], order.StopPrice);
+            Quantity.WriteBytes(bytes[totalQuantityOffset..], order.TotalQuantity);
+            Write(bytes[cancelOnOffset..], order.CancelOn);
+            Quantity.WriteBytes(bytes[orderAmountOffset..], order.OrderAmount);
+            Write(bytes[feeIdOffset..], order.FeeId);
+            Quantity.WriteBytes(bytes[costOffset..], order.Cost);
+            Quantity.WriteBytes(bytes[feeOffset..], order.Fee);
         }
 
         public static Order Deserialize(ReadOnlySpan<byte> bytes)

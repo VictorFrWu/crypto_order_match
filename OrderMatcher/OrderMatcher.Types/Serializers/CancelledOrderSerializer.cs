@@ -80,17 +80,17 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length < sizeOfMessage)
                 throw new ArgumentException(Constant.INVALID_SIZE, nameof(bytes));
 
-            Write(bytes.Slice(messageLengthOffset), sizeOfMessage);
+            Write(bytes[messageLengthOffset..], sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.Cancel;
-            Write(bytes.Slice(versionOffset), version);
-            OrderId.WriteBytes(bytes.Slice(orderIdOffset), orderId);
-            UserId.WriteBytes(bytes.Slice(userIdOffeset), userId);
-            Quantity.WriteBytes(bytes.Slice(remainingQuantityOffset), remainingQuantity);
+            Write(bytes[versionOffset..], version);
+            OrderId.WriteBytes(bytes[orderIdOffset..], orderId);
+            UserId.WriteBytes(bytes[userIdOffeset..], userId);
+            Quantity.WriteBytes(bytes[remainingQuantityOffset..], remainingQuantity);
             bytes[cancelReasonOffset] = (byte)cancelReason;
-            Write(bytes.Slice(timestampOffset), timeStamp);
-            Quantity.WriteBytes(bytes.Slice(costOffset), cost);
-            Quantity.WriteBytes(bytes.Slice(feeOffset), fee);
-            Write(bytes.Slice(messageSequenceOffset), messageSequence);
+            Write(bytes[timestampOffset..], timeStamp);
+            Quantity.WriteBytes(bytes[costOffset..], cost);
+            Quantity.WriteBytes(bytes[feeOffset..], fee);
+            Write(bytes[messageSequenceOffset..], messageSequence);
         }
 
         public static CancelledOrder Deserialize(ReadOnlySpan<byte> bytes)
@@ -106,21 +106,21 @@ namespace OrderMatcher.Types.Serializers
             if (messageType != MessageType.Cancel)
                 throw new Exception(Constant.INVALID_MESSAGE);
 
-            var version = BitConverter.ToInt16(bytes.Slice(versionOffset));
+            var version = BitConverter.ToInt16(bytes[versionOffset..]);
 
             if (version != CancelledOrderSerializer.version)
                 throw new Exception(Constant.INVALID_VERSION);
 
             var cancelledOrder = new CancelledOrder();
 
-            cancelledOrder.OrderId = OrderId.ReadOrderId(bytes.Slice(orderIdOffset));
-            cancelledOrder.UserId = UserId.ReadUserId(bytes.Slice(userIdOffeset));
-            cancelledOrder.RemainingQuantity = Quantity.ReadQuantity(bytes.Slice(remainingQuantityOffset));
+            cancelledOrder.OrderId = OrderId.ReadOrderId(bytes[orderIdOffset..]);
+            cancelledOrder.UserId = UserId.ReadUserId(bytes[userIdOffeset..]);
+            cancelledOrder.RemainingQuantity = Quantity.ReadQuantity(bytes[remainingQuantityOffset..]);
             cancelledOrder.CancelReason = (CancelReason)bytes[cancelReasonOffset];
-            cancelledOrder.Timestamp = BitConverter.ToInt32(bytes.Slice(timestampOffset));
-            cancelledOrder.Cost = Quantity.ReadQuantity(bytes.Slice(costOffset));
-            cancelledOrder.Fee = Quantity.ReadQuantity(bytes.Slice(feeOffset));
-            cancelledOrder.MessageSequence = BitConverter.ToInt64(bytes.Slice(messageSequenceOffset));
+            cancelledOrder.Timestamp = BitConverter.ToInt32(bytes[timestampOffset..]);
+            cancelledOrder.Cost = Quantity.ReadQuantity(bytes[costOffset..]);
+            cancelledOrder.Fee = Quantity.ReadQuantity(bytes[feeOffset..]);
+            cancelledOrder.MessageSequence = BitConverter.ToInt64(bytes[messageSequenceOffset..]);
 
             return cancelledOrder;
         }

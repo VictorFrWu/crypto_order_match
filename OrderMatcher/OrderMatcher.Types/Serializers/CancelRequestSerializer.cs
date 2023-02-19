@@ -46,10 +46,10 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length < sizeOfMessage)
                 throw new ArgumentException(Constant.INVALID_SIZE, nameof(bytes));
 
-            Write(bytes.Slice(messageLengthOffset), sizeOfMessage);
+            Write(bytes[messageLengthOffset..], sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.CancelRequest;
-            Write(bytes.Slice(versionOffset), version);
-            OrderId.WriteBytes(bytes.Slice(orderIdOffset), cancelRequest.OrderId);
+            Write(bytes[versionOffset..], version);
+            OrderId.WriteBytes(bytes[orderIdOffset..], cancelRequest.OrderId);
         }
 
         public static CancelRequest Deserialize(ReadOnlySpan<byte> bytes)
@@ -60,19 +60,19 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length != sizeOfMessage)
                 throw new Exception("Cancel Request Message must be of Size : " + sizeOfMessage);
 
-            var messageType = (MessageType)(bytes[messageTypeOffset]);
+            var messageType = (MessageType)bytes[messageTypeOffset];
 
             if (messageType != MessageType.CancelRequest)
                 throw new Exception(Constant.INVALID_MESSAGE);
 
-            var version = BitConverter.ToInt16(bytes.Slice(versionOffset));
+            var version = BitConverter.ToInt16(bytes[versionOffset..]);
 
             if (version != CancelRequestSerializer.version)
                 throw new Exception(Constant.INVALID_VERSION);
 
             var cancelRequest = new CancelRequest();
 
-            cancelRequest.OrderId = OrderId.ReadOrderId(bytes.Slice(orderIdOffset));
+            cancelRequest.OrderId = OrderId.ReadOrderId(bytes[orderIdOffset..]);
 
             return cancelRequest;
         }

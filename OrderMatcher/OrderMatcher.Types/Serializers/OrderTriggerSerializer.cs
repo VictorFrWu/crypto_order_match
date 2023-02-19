@@ -66,11 +66,11 @@ namespace OrderMatcher.Types.Serializers
 
             Write(bytes.Slice(messageLengthOffset, 4), sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.OrderTrigger;
-            Write(bytes.Slice(versionOffset), version);
-            OrderId.WriteBytes(bytes.Slice(orderIdOffset), orderId);
-            UserId.WriteBytes(bytes.Slice(userIdOffset), userId);
-            Write(bytes.Slice(timestampOffset), timestamp);
-            Write(bytes.Slice(messageSequenceOffset), messageSequence);
+            Write(bytes[versionOffset..], version);
+            OrderId.WriteBytes(bytes[orderIdOffset..], orderId);
+            UserId.WriteBytes(bytes[userIdOffset..], userId);
+            Write(bytes[timestampOffset..], timestamp);
+            Write(bytes[messageSequenceOffset..], messageSequence);
         }
 
         public static OrderTrigger Deserialize(ReadOnlySpan<byte> bytes)
@@ -92,10 +92,10 @@ namespace OrderMatcher.Types.Serializers
 
             var orderTrigger = new OrderTrigger();
 
-            orderTrigger.OrderId = OrderId.ReadOrderId(bytes.Slice(orderIdOffset));
-            orderTrigger.UserId = UserId.ReadUserId(bytes.Slice(userIdOffset));
-            orderTrigger.Timestamp = BitConverter.ToInt32(bytes.Slice(timestampOffset));
-            orderTrigger.MessageSequence = BitConverter.ToInt64(bytes.Slice(messageSequenceOffset));
+            orderTrigger.OrderId = OrderId.ReadOrderId(bytes[orderIdOffset..]);
+            orderTrigger.UserId = UserId.ReadUserId(bytes[userIdOffset..]);
+            orderTrigger.Timestamp = BitConverter.ToInt32(bytes[timestampOffset..]);
+            orderTrigger.MessageSequence = BitConverter.ToInt64(bytes[messageSequenceOffset..]);
 
             return orderTrigger;
         }

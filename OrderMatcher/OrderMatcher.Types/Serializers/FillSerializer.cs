@@ -112,37 +112,37 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length < sizeOfMessage)
                 throw new ArgumentException(Constant.INVALID_SIZE, nameof(bytes));
 
-            Write(bytes.Slice(messageLengthOffset), sizeOfMessage);
+            Write(bytes[messageLengthOffset..], sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.Fill;
-            Write(bytes.Slice(versionOffset), version);
-            OrderId.WriteBytes(bytes.Slice(makerOrderIdOffset), makerOrderId);
-            OrderId.WriteBytes(bytes.Slice(takerOrderIdOffset), takerOrderId);
-            UserId.WriteBytes(bytes.Slice(makerUserIdOffset), makerUserId);
-            UserId.WriteBytes(bytes.Slice(takerUserIdOffset), takerUserId);
-            Price.WriteBytes(bytes.Slice(matchRateOffset), matchRate);
-            Quantity.WriteBytes(bytes.Slice(matchQuantityOffset), matchQuantity);
-            bytes[isAskRemainingNullOffset] = Convert.ToByte(remainingAskQuantiy.HasValue ? true : false);
+            Write(bytes[versionOffset..], version);
+            OrderId.WriteBytes(bytes[makerOrderIdOffset..], makerOrderId);
+            OrderId.WriteBytes(bytes[takerOrderIdOffset..], takerOrderId);
+            UserId.WriteBytes(bytes[makerUserIdOffset..], makerUserId);
+            UserId.WriteBytes(bytes[takerUserIdOffset..], takerUserId);
+            Price.WriteBytes(bytes[matchRateOffset..], matchRate);
+            Quantity.WriteBytes(bytes[matchQuantityOffset..], matchQuantity);
+            bytes[isAskRemainingNullOffset] = Convert.ToByte(remainingAskQuantiy.HasValue);
 
             if (remainingAskQuantiy.HasValue)
-                Quantity.WriteBytes(bytes.Slice(askRemainingQuantityOffset), remainingAskQuantiy.Value);
+                Quantity.WriteBytes(bytes[askRemainingQuantityOffset..], remainingAskQuantiy.Value);
 
-            bytes[isAskFeeNullOffset] = Convert.ToByte(askFee.HasValue ? true : false);
+            bytes[isAskFeeNullOffset] = Convert.ToByte(askFee.HasValue);
 
             if (askFee.HasValue)
-                Quantity.WriteBytes(bytes.Slice(askFeeOffset), askFee.Value);
+                Quantity.WriteBytes(bytes[askFeeOffset..], askFee.Value);
 
-            bytes[isBidCostNullOffset] = Convert.ToByte(bidCost.HasValue ? true : false);
+            bytes[isBidCostNullOffset] = Convert.ToByte(bidCost.HasValue);
 
             if (bidCost.HasValue)
-                Quantity.WriteBytes(bytes.Slice(bidCostOffset), bidCost.Value);
+                Quantity.WriteBytes(bytes[bidCostOffset..], bidCost.Value);
 
-            bytes[isBidFeeNullOffset] = Convert.ToByte(bidFee.HasValue ? true : false);
+            bytes[isBidFeeNullOffset] = Convert.ToByte(bidFee.HasValue);
 
             if (bidFee.HasValue)
-                Quantity.WriteBytes(bytes.Slice(bidFeeOffset), bidFee.Value);
+                Quantity.WriteBytes(bytes[bidFeeOffset..], bidFee.Value);
 
-            Write(bytes.Slice(timestampOffset), timeStamp);
-            Write(bytes.Slice(messageSequenceOffset), messageSequence);
+            Write(bytes[timestampOffset..], timeStamp);
+            Write(bytes[messageSequenceOffset..], messageSequence);
         }
 
         public static Fill Deserialize(ReadOnlySpan<byte> bytes)
@@ -153,37 +153,37 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length != sizeOfMessage)
                 throw new Exception("Fill Message must be of Size : " + sizeOfMessage);
 
-            var messageType = (MessageType)(bytes[messageTypeOffset]);
+            var messageType = (MessageType)bytes[messageTypeOffset];
 
             if (messageType != MessageType.Fill)
                 throw new Exception(Constant.INVALID_MESSAGE);
 
-            var version = BitConverter.ToInt16(bytes.Slice(versionOffset));
+            var version = BitConverter.ToInt16(bytes[versionOffset..]);
 
             if (version != FillSerializer.version)
                 throw new Exception(Constant.INVALID_VERSION);
 
             var fill = new Fill();
-            fill.MakerOrderId = OrderId.ReadOrderId(bytes.Slice(makerOrderIdOffset));
-            fill.TakerOrderId = OrderId.ReadOrderId(bytes.Slice(takerOrderIdOffset));
-            fill.MakerUserId = UserId.ReadUserId(bytes.Slice(makerUserIdOffset));
-            fill.TakerUserId = UserId.ReadUserId(bytes.Slice(takerUserIdOffset));
-            fill.MatchRate = Price.ReadPrice(bytes.Slice(matchRateOffset));
-            fill.MatchQuantity = Quantity.ReadQuantity(bytes.Slice(matchQuantityOffset));
-            fill.Timestamp = BitConverter.ToInt32(bytes.Slice(timestampOffset));
-            fill.MessageSequence = BitConverter.ToInt64(bytes.Slice(messageSequenceOffset));
+            fill.MakerOrderId = OrderId.ReadOrderId(bytes[makerOrderIdOffset..]);
+            fill.TakerOrderId = OrderId.ReadOrderId(bytes[takerOrderIdOffset..]);
+            fill.MakerUserId = UserId.ReadUserId(bytes[makerUserIdOffset..]);
+            fill.TakerUserId = UserId.ReadUserId(bytes[takerUserIdOffset..]);
+            fill.MatchRate = Price.ReadPrice(bytes[matchRateOffset..]);
+            fill.MatchQuantity = Quantity.ReadQuantity(bytes[matchQuantityOffset..]);
+            fill.Timestamp = BitConverter.ToInt32(bytes[timestampOffset..]);
+            fill.MessageSequence = BitConverter.ToInt64(bytes[messageSequenceOffset..]);
 
             if (Convert.ToBoolean(bytes[isAskRemainingNullOffset]))
-                fill.AskRemainingQuantity = Quantity.ReadQuantity(bytes.Slice(askRemainingQuantityOffset));
+                fill.AskRemainingQuantity = Quantity.ReadQuantity(bytes[askRemainingQuantityOffset..]);
 
             if (Convert.ToBoolean(bytes[isAskFeeNullOffset]))
-                fill.AskFee = Quantity.ReadQuantity(bytes.Slice(askFeeOffset));
+                fill.AskFee = Quantity.ReadQuantity(bytes[askFeeOffset..]);
 
             if (Convert.ToBoolean(bytes[isBidCostNullOffset]))
-                fill.BidCost = Quantity.ReadQuantity(bytes.Slice(bidCostOffset));
+                fill.BidCost = Quantity.ReadQuantity(bytes[bidCostOffset..]);
 
             if (Convert.ToBoolean(bytes[isBidFeeNullOffset]))
-                fill.BidFee = Quantity.ReadQuantity(bytes.Slice(bidFeeOffset));
+                fill.BidFee = Quantity.ReadQuantity(bytes[bidFeeOffset..]);
 
             return fill;
         }

@@ -65,13 +65,13 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length < sizeOfMessage)
                 throw new ArgumentException(Constant.INVALID_SIZE, nameof(bytes));
 
-            Write(bytes.Slice(messageLengthOffset), sizeOfMessage);
+            Write(bytes[messageLengthOffset..], sizeOfMessage);
             bytes[messageTypeOffset] = (byte)MessageType.OrderAccept;
-            Write(bytes.Slice(versionOffset), (long)version);
-            OrderId.WriteBytes(bytes.Slice(orderIdOffset), orderId);
-            UserId.WriteBytes(bytes.Slice(userIdOffset), userId);
-            Write(bytes.Slice(timestampOffset), timestamp);
-            Write(bytes.Slice(messageSequenceOffset), messageSequence);
+            Write(bytes[versionOffset..], (long)version);
+            OrderId.WriteBytes(bytes[orderIdOffset..], orderId);
+            UserId.WriteBytes(bytes[userIdOffset..], userId);
+            Write(bytes[timestampOffset..], timestamp);
+            Write(bytes[messageSequenceOffset..], messageSequence);
         }
 
         public static OrderAccept Deserialize(ReadOnlySpan<byte> bytes)
@@ -82,22 +82,22 @@ namespace OrderMatcher.Types.Serializers
             if (bytes.Length != sizeOfMessage)
                 throw new Exception("Order accept message must be of Size : " + sizeOfMessage);
 
-            var messageType = (MessageType)(bytes[messageTypeOffset]);
+            var messageType = (MessageType)bytes[messageTypeOffset];
 
             if (messageType != MessageType.OrderAccept)
                 throw new Exception(Constant.INVALID_MESSAGE);
 
-            var version = BitConverter.ToInt16(bytes.Slice(versionOffset));
+            var version = BitConverter.ToInt16(bytes[versionOffset..]);
 
             if (version != OrderAcceptSerializer.version)
                 throw new Exception(Constant.INVALID_VERSION);
 
             var orderAccept = new OrderAccept();
 
-            orderAccept.OrderId = OrderId.ReadOrderId(bytes.Slice(orderIdOffset));
-            orderAccept.UserId = UserId.ReadUserId(bytes.Slice(userIdOffset));
-            orderAccept.Timestamp = BitConverter.ToInt32(bytes.Slice(timestampOffset));
-            orderAccept.MessageSequence = BitConverter.ToInt64(bytes.Slice(messageSequenceOffset));
+            orderAccept.OrderId = OrderId.ReadOrderId(bytes[orderIdOffset..]);
+            orderAccept.UserId = UserId.ReadUserId(bytes[userIdOffset..]);
+            orderAccept.Timestamp = BitConverter.ToInt32(bytes[timestampOffset..]);
+            orderAccept.MessageSequence = BitConverter.ToInt64(bytes[messageSequenceOffset..]);
 
             return orderAccept;
         }
